@@ -2,7 +2,6 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       urlBase: "https://www.swapi.tech/api/",
-      endpoints: ["people", "vehicles", "planets"],
       people: JSON.parse(localStorage.getItem("people")) || [],
       planets: JSON.parse(localStorage.getItem("planets")) || [],
       vehicles: JSON.parse(localStorage.getItem("vehicles")) || [],
@@ -10,15 +9,37 @@ const getState = ({ getStore, getActions, setStore }) => {
     actions: {
       getPeople: async () => {
         const store = getStore();
+        let aux = [];
         try {
           let response = await fetch(`${store.urlBase}people/`);
           let data = await response.json();
+          data.results.forEach(async (person) => {
+            let responsePerson = await fetch(person.url);
+            let dataPerson = await responsePerson.json();
+            console.log(dataPerson.result);
+            aux.push(dataPerson.result);
+          });
+          console.log(
+            "hi",
+            aux.sort(function (a, b) {
+              if (a.uid > b.uid) {
+                return 1;
+              }
+              if (a.uid < b.uid) {
+                return -1;
+              }
+              return 0;
+            })
+          );
+          setStore({
+            people: aux,
+          });
+          localStorage.setItem("people", JSON.stringify(store.people));
+          /*         
           if (response.ok) {
             setStore({
-              people: data,
-            });
-            localStorage.setItem("people", JSON.stringify(data));
-          }
+              people: data.results,
+            }); */
         } catch (error) {
           console.log(error);
         }
@@ -30,9 +51,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           let data = await response.json();
           if (response.ok) {
             setStore({
-              planets: data,
+              planets: data.results,
             });
-            localStorage.setItem("planets", JSON.stringify(data));
+            localStorage.setItem("planets", JSON.stringify(data.results));
           }
         } catch (error) {
           console.log(error);
@@ -45,9 +66,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           let data = await response.json();
           if (response.ok) {
             setStore({
-              vehicles: data,
+              vehicles: data.results,
             });
-            localStorage.setItem("vehicles", JSON.stringify(data));
+            localStorage.setItem("vehicles", JSON.stringify(data.results));
           }
         } catch (error) {
           console.log(error);

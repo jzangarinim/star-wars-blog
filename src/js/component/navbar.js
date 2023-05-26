@@ -5,6 +5,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-light bg-light mb-3 p-0">
       <div className="container-fluid d-flex">
+        {/* Logo */}
         <Link to="/" className="col-1">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/1200px-Star_Wars_Logo.svg.png"

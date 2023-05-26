@@ -34,12 +34,12 @@ const injectContext = (PassedComponent) => {
       if (!localStorage.getItem("people")) {
         state.actions.getPeople();
       }
-      if (!localStorage.getItem("planets")) {
+      /*       if (!localStorage.getItem("planets")) {
         state.actions.getPlanets();
       }
       if (!localStorage.getItem("vehicles")) {
         state.actions.getVehicles();
-      }
+      } */
     }, []);
 
     // The initial value for the context is not null anymore, but the current state of this component,

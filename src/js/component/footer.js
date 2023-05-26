@@ -1,7 +1,7 @@
 import React from "react";
 
-export const Footer = () => (
-  <footer className="footer mt-auto py-3 text-center">
-    <p>Footer</p>
-  </footer>
-);
+const Footer = () => {
+  return <div className="text-center pb-5">A Star Wars Blog</div>;
+};
+
+export default Footer;

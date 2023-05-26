@@ -4,9 +4,9 @@ import SideScroll from "../component/SideScroll.jsx";
 import { Context } from "../store/appContext.js";
 
 export const Home = () => {
+  document.title = "Home Page";
   const { store } = useContext(Context);
   const { people, planets, vehicles } = store;
-  document.title = "Star Wars Blog";
   return (
     <>
       <SideScroll title="People" data={people} />
