@@ -13,28 +13,34 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           let response = await fetch(`${store.urlBase}people/`);
           let data = await response.json();
+          console.log(data.results);
+          for await (let person of data.results) {
+            let responsePerson = await fetch(person.url);
+            let dataPerson = await responsePerson.json();
+            aux.push(dataPerson.result);
+            setStore({
+              people: aux,
+            });
+            localStorage.setItem("people", JSON.stringify(store.people));
+          } /* 
           data.results.forEach(async (person) => {
             let responsePerson = await fetch(person.url);
             let dataPerson = await responsePerson.json();
-            console.log(dataPerson.result);
+            setStore({
+              person: dataPerson,
+            });
+            localStorage.setItem("people", JSON.stringify(store.people));
             aux.push(dataPerson.result);
-          });
-          console.log(
-            "hi",
-            aux.sort(function (a, b) {
-              if (a.uid > b.uid) {
-                return 1;
-              }
-              if (a.uid < b.uid) {
-                return -1;
-              }
-              return 0;
-            })
-          );
-          setStore({
-            people: aux,
-          });
-          localStorage.setItem("people", JSON.stringify(store.people));
+          }); */ /* 
+          aux.sort(function (a, b) {
+            if (a.uid > b.uid) {
+              return 1;
+            }
+            if (a.uid < b.uid) {
+              return -1;
+            }
+            return 0;
+          }); */
           /*         
           if (response.ok) {
             setStore({

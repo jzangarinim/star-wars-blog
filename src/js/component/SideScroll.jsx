@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const SideScroll = (props) => {
   let aux = "";
   let info = props.data;
+  console.log("hi", props.data);
   if (props.title === "People") {
     aux = "characters";
   } else if (props.title === "Planets") {

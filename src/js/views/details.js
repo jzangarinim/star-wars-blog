@@ -11,7 +11,7 @@ export const Details = () => {
     aux = "people";
   } else {
     aux = item;
-  }
+  } /* 
   async function getData() {
     let response = await fetch(`https://www.swapi.tech/api/${aux}/${id}`);
     let data = await response.json();
@@ -20,8 +20,7 @@ export const Details = () => {
   const { store, actions } = useContext(Context);
   useEffect(() => {
     getData();
-  }, []);
-  console.log(info);
+  }, []); */
   return (
     <>
       <div className="container-fluid col-11">
