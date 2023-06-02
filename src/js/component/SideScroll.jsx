@@ -4,13 +4,17 @@ import { Link } from "react-router-dom";
 const SideScroll = (props) => {
   let aux = "";
   let info = props.data;
-  console.log("hi", props.data);
+  let questions = [];
+  console.log(props);
   if (props.title === "People") {
     aux = "characters";
+    questions = ["Gender", "Eye color", "Hair color"];
   } else if (props.title === "Planets") {
     aux = "planets";
+    questions = ["Population", "Terrain", "Climate"];
   } else if (props.title === "Vehicles") {
     aux = "vehicles";
+    questions = ["Manufacturer", "Passengers", "Max speed"];
   }
   return (
     <>
@@ -29,14 +33,42 @@ const SideScroll = (props) => {
                   <img
                     src={`https://starwars-visualguide.com/assets/img/${aux}/${people.uid}.jpg`}
                     className="card-img-top"
+                    alt="Image not found"
                   />
                   <div className="card-body">
                     <h5 className="card-title">{people.properties?.name}</h5>
+                    <p className="card-text">
+                      {questions[0]}:{" "}
+                      {aux === "characters"
+                        ? people.properties?.gender
+                        : aux === "planets"
+                        ? people.properties?.population
+                        : aux === "vehicles"
+                        ? people.properties?.manufacturer
+                        : ""}
+                      <br></br>
+                      {questions[1]}:{" "}
+                      {aux === "characters"
+                        ? people.properties?.eye_color
+                        : aux === "planets"
+                        ? people.properties?.terrain
+                        : aux === "vehicles"
+                        ? people.properties?.passengers
+                        : ""}
+                      <br></br>
+                      {questions[2]}:{" "}
+                      {aux === "characters"
+                        ? people.properties?.hair_color
+                        : aux === "planets"
+                        ? people.properties?.climate
+                        : aux === "vehicles"
+                        ? people.properties?.max_atmosphering_speed
+                        : ""}
+                    </p>
                     <div className="mt-3 d-flex justify-content-between">
                       <Link
-                        to={`/${aux}/${people.uid}`}
+                        to={`/${aux}/${people._id}`}
                         className="btn btn-warning"
-                        state={{ id: people.uid, item: aux }}
                       >
                         Read more
                       </Link>
@@ -48,12 +80,6 @@ const SideScroll = (props) => {
                 </div>
               );
             })}
-            {/* See all button */}
-            <div className="d-flex justify-content-center align-items-center">
-              <Link to={`/${aux}`}>
-                <button className="btn btn-warning">See all {aux}</button>
-              </Link>
-            </div>
           </div>
         </div>
       </div>

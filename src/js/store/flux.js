@@ -13,7 +13,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           let response = await fetch(`${store.urlBase}people/`);
           let data = await response.json();
-          console.log(data.results);
           for await (let person of data.results) {
             let responsePerson = await fetch(person.url);
             let dataPerson = await responsePerson.json();
@@ -22,44 +21,25 @@ const getState = ({ getStore, getActions, setStore }) => {
               people: aux,
             });
             localStorage.setItem("people", JSON.stringify(store.people));
-          } /* 
-          data.results.forEach(async (person) => {
-            let responsePerson = await fetch(person.url);
-            let dataPerson = await responsePerson.json();
-            setStore({
-              person: dataPerson,
-            });
-            localStorage.setItem("people", JSON.stringify(store.people));
-            aux.push(dataPerson.result);
-          }); */ /* 
-          aux.sort(function (a, b) {
-            if (a.uid > b.uid) {
-              return 1;
-            }
-            if (a.uid < b.uid) {
-              return -1;
-            }
-            return 0;
-          }); */
-          /*         
-          if (response.ok) {
-            setStore({
-              people: data.results,
-            }); */
+          }
         } catch (error) {
           console.log(error);
         }
       },
       getPlanets: async () => {
         const store = getStore();
+        let aux = [];
         try {
           let response = await fetch(`${store.urlBase}planets/`);
           let data = await response.json();
-          if (response.ok) {
+          for await (let planet of data.results) {
+            let responsePlanet = await fetch(planet.url);
+            let dataPlanet = await responsePlanet.json();
+            aux.push(dataPlanet.result);
             setStore({
-              planets: data.results,
+              planets: aux,
             });
-            localStorage.setItem("planets", JSON.stringify(data.results));
+            localStorage.setItem("planets", JSON.stringify(store.planets));
           }
         } catch (error) {
           console.log(error);
@@ -67,14 +47,18 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getVehicles: async () => {
         const store = getStore();
+        let aux = [];
         try {
           let response = await fetch(`${store.urlBase}vehicles/`);
           let data = await response.json();
-          if (response.ok) {
+          for await (let vehicle of data.results) {
+            let responseVehicle = await fetch(vehicle.url);
+            let dataVehicle = await responseVehicle.json();
+            aux.push(dataVehicle.result);
             setStore({
-              vehicles: data.results,
+              vehicles: aux,
             });
-            localStorage.setItem("vehicles", JSON.stringify(data.results));
+            localStorage.setItem("vehicles", JSON.stringify(store.vehicles));
           }
         } catch (error) {
           console.log(error);
