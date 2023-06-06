@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext.js";
 
 const SideScroll = (props) => {
+  const { actions } = useContext(Context);
+  const { markFavorite } = actions;
   let aux = "";
   let info = props.data;
   let questions = [];
-  console.log(props);
   if (props.title === "People") {
     aux = "characters";
     questions = ["Gender", "Eye color", "Hair color"];

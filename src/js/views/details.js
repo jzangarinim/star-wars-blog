@@ -3,10 +3,10 @@ import { Context } from "../store/appContext.js";
 import { useParams } from "react-router-dom";
 
 export const Details = () => {
-  const [rand] = useState(Math.floor(Math.random() * 10 + 1));
+  const [rand] = useState(Math.floor(Math.random() * 59 + 1));
   const [info, setInfo] = useState({});
   const { store } = useContext(Context);
-  const { people, planets, vehicles } = store;
+  const { people } = store;
   const params = useParams();
   function getDetails() {
     if (params.nature != "characters") {
@@ -51,11 +51,58 @@ export const Details = () => {
                       Last updated {rand} {rand == 1 ? "min" : "mins"} ago.
                     </small>
                   </p>
-                  <p className="card-text">
-                    <small className="text-body-secondary">
-                      {/* Height: {info.properties?.height} */}
-                    </small>
-                  </p>
+                  {params.nature === "characters" && (
+                    <div className="card-text d-flex justify-content-evenly">
+                      <div className="text-body-secondary border border-warning p-2 rounded text-center">
+                        Height:<br></br> {info.properties?.height} cm
+                      </div>
+                      <div className="text-body-secondary  border border-warning p-2 rounded text-center">
+                        Weight:<br></br> {info.properties?.mass} kg
+                      </div>
+                      <div className="text-body-secondary border border-warning p-2 rounded text-center">
+                        Eye color:<br></br> {info.properties?.eye_color}
+                      </div>
+                      <div className="text-body-secondary border border-warning p-2 rounded text-center">
+                        Hair color:<br></br> {info.properties?.hair_color}
+                      </div>
+                      <div className="text-body-secondary border border-warning p-2 rounded text-center">
+                        Gender:<br></br> {info.properties?.gender}
+                      </div>
+                    </div>
+                  )}
+                  {params.nature === "planets" && (
+                    <div className="card-text d-flex justify-content-evenly">
+                      <div className="text-body-secondary border border-warning p-2 rounded text-center">
+                        Climate:<br></br> {info.properties?.climate}
+                      </div>
+                      <div className="text-body-secondary border border-warning p-2 rounded text-center">
+                        Diameter:<br></br> {info.properties?.diameter} km
+                      </div>
+                      <div className="text-body-secondary border border-warning p-2 rounded text-center">
+                        Population:<br></br> {info.properties?.population}
+                      </div>
+                      <div className="text-body-secondary border border-warning p-2 rounded text-center">
+                        Terrain:<br></br> {info.properties?.terrain}
+                      </div>
+                    </div>
+                  )}
+                  {params.nature === "vehicles" && (
+                    <div className="card-text d-flex justify-content-evenly">
+                      <div className="text-body-secondary border border-warning p-2 rounded text-center">
+                        Model:<br></br> {info.properties?.model}
+                      </div>
+                      <div className="text-body-secondary border border-warning p-2 rounded text-center">
+                        Manufacturer:<br></br> {info.properties?.manufacturer}
+                      </div>
+                      <div className="text-body-secondary border border-warning p-2 rounded text-center">
+                        Cost:<br></br> {info.properties?.cost_in_credits}{" "}
+                        credits
+                      </div>
+                      <div className="text-body-secondary border border-warning p-2 rounded text-center">
+                        Passengers:<br></br> {info.properties?.passengers}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

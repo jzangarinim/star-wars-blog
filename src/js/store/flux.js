@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       people: JSON.parse(localStorage.getItem("people")) || [],
       planets: JSON.parse(localStorage.getItem("planets")) || [],
       vehicles: JSON.parse(localStorage.getItem("vehicles")) || [],
+      favorites: [],
     },
     actions: {
       getPeople: async () => {
@@ -63,6 +64,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         } catch (error) {
           console.log(error);
         }
+      },
+      markFavorite: (event) => {
+        console.log(event.target);
       },
     },
   };
