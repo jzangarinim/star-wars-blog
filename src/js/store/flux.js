@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       people: JSON.parse(localStorage.getItem("people")) || [],
       planets: JSON.parse(localStorage.getItem("planets")) || [],
       vehicles: JSON.parse(localStorage.getItem("vehicles")) || [],
-      favorites: [],
+      favorites: JSON.parse(localStorage.getItem("favorites")) || [],
     },
     actions: {
       getPeople: async () => {
@@ -65,8 +65,36 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-      markFavorite: (event) => {
-        console.log(event.target);
+      checkFavorite: (item) => {
+        const store = getStore();
+        const { favorites } = store;
+        for (let fav of favorites) {
+          if (fav._id == item._id) {
+            return true;
+          }
+        }
+      },
+      markFavorite: (item) => {
+        const store = getStore();
+        const { favorites } = store;
+        const actions = getActions();
+        const { checkFavorite } = actions;
+        if (!checkFavorite(item)) {
+          setStore({ favorites: [...favorites, item] });
+          localStorage.setItem(
+            "favorites",
+            JSON.stringify(getStore().favorites)
+          );
+        } else {
+          let aux = favorites.filter((fav) => {
+            return fav._id != item._id;
+          });
+          setStore({ favorites: aux });
+          localStorage.setItem(
+            "favorites",
+            JSON.stringify(getStore().favorites)
+          );
+        }
       },
     },
   };

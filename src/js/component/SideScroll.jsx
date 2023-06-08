@@ -4,7 +4,7 @@ import { Context } from "../store/appContext.js";
 
 const SideScroll = (props) => {
   const { actions } = useContext(Context);
-  const { markFavorite } = actions;
+  const { markFavorite, checkFavorite } = actions;
   let aux = "";
   let info = props.data;
   let questions = [];
@@ -74,8 +74,16 @@ const SideScroll = (props) => {
                       >
                         Read more
                       </Link>
-                      <button href="#" className="btn btn-warning">
-                        <i className="fa-regular fa-heart text-dark bg-warning"></i>
+                      <button
+                        href="#"
+                        className="btn btn-warning"
+                        onClick={() => markFavorite(people)}
+                      >
+                        <i
+                          className={`fa-${
+                            checkFavorite(people) ? "solid" : "regular"
+                          } fa-heart text-dark bg-warning`}
+                        ></i>
                       </button>
                     </div>
                   </div>

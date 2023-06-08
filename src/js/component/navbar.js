@@ -27,14 +27,18 @@ export const Navbar = () => {
           </button>
           <ul className="dropdown-menu dropdown-menu-end bg-warning">
             {favorites.map((item, key) => {
-              <li>
-                <button
-                  className="dropdown-item bg-warning border-top border-bottom border-dark"
-                  type="button"
-                >
-                  Option 1
-                </button>
-              </li>;
+              return (
+                <>
+                  <li>
+                    <button
+                      className="rounded dropdown-item bg-warning border-top border-bottom border-dark"
+                      type="button"
+                    >
+                      {item.properties?.name}
+                    </button>
+                  </li>
+                </>
+              );
             })}
           </ul>
         </div>
