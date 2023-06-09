@@ -5,6 +5,8 @@ import { Context } from "../store/appContext.js";
 export const Navbar = () => {
   const { store } = useContext(Context);
   const { favorites } = store;
+  const { actions } = useContext(Context);
+  const { markFavorite } = actions;
   return (
     <nav className="navbar navbar-light bg-light mb-3 p-0">
       <div className="container-fluid d-flex">
@@ -26,18 +28,28 @@ export const Navbar = () => {
             Favorites
           </button>
           <ul className="dropdown-menu dropdown-menu-end bg-warning">
-            {favorites.map((item, key) => {
+            {favorites.map((item, index) => {
               return (
-                <>
-                  <li>
-                    <button
-                      className="rounded dropdown-item bg-warning border-top border-bottom border-dark"
-                      type="button"
-                    >
-                      {item.properties?.name}
-                    </button>
-                  </li>
-                </>
+                <li className="d-flex" key={`li${index}`}>
+                  <button
+                    className="dropdown-item bg-warning border-top border-bottom border-dark"
+                    type="button"
+                  >
+                    {item.properties?.name}
+                  </button>
+                  <button
+                    className="dropdown-item bg-danger border-top border-bottom border-dark"
+                    style={{
+                      width: 30 + "px",
+                      paddingLeft: 10 + "px",
+                      paddingRight: 10 + "px",
+                    }}
+                    type="button"
+                    onClick={() => markFavorite(item)}
+                  >
+                    X
+                  </button>
+                </li>
               );
             })}
           </ul>
